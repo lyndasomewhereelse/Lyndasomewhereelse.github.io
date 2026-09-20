@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#faf9f6">
+
+<title>Lynda Somewhere Else</title>
+
+<style>
+  :root {
+    --paper: #faf9f6;
+    --white: #ffffff;
+    --ink: #151515;
+    --soft: #77736d;
+    --line: #dedbd5;
+    --wash: #f3f1ed;
+    --serif: Georgia, "Times New Roman", serif;
+    --sans: -apple-system, BlinkMacSystemFont, "Helvetica Neue",
+            Arial, sans-serif;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  button {
+    font: inherit;
+  }
+
+  .app {
+    max-width: 520px;
+    margin: 0 auto;
+    min-height: 100vh;
+    padding: 0 22px 110px;
+  }
+
+  /* ---------- HEADER ---------- */
+
+  header {
+    padding: 52px 0 24px;
+  }
+
+  .eyebrow {
+    font-size: 11px;
+    letter-spacing: .28em;
+    text-transform: uppercase;
+    color: var(--soft);
+    margin-bottom: 14px;
+  }
+
+  h1 {
+    font-family: var(--serif);
+    font-size: clamp(42px, 12vw, 64px);
+    font-weight: 400;
+    line-height: .91;
+    letter-spacing: -.045em;
+    margin: 0;
+  }
+
+  .tagline {
+    margin-top: 18px;
+    font-size: 12px;
+    letter-spacing: .23em;
+    text-transform: uppercase;
+    color: var(--soft);
+  }
+
+  .plane {
+    margin-top: 24px;
+    width: 100%;
+    height: 54px;
+  }
+
+  .plane svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  /* ---------- NAV ---------- */
+
+  .tabs {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    background: var(--wash);
+    border-radius: 30px;
+    padding: 4px;
+    margin: 10px 0 26px;
+  }
+
+  .tab {
+    border: 0;
+    background: transparent;
+    padding: 11px 5px;
+    border-radius: 24px;
+    color: var(--soft);
+    cursor: pointer;
+  }
+
+  .tab.active {
+    background: var(--ink);
+    color: white;
+  }
+
+  /* ---------- DESTINATIONS ---------- */
+
+  .city-list {
+    display: grid;
+    gap: 10px;
+  }
+
+  .city {
+    border: 1px solid var(--line);
+    background: rgba(255,255,255,.55);
+    border-radius: 18px;
+    min-height: 92px;
+    padding: 15px 16px;
+    display: grid;
+    grid-template-columns: 62px 1fr 22px;
+    gap: 13px;
+    align-items: center;
+    cursor: pointer;
+    transition: .18s ease;
+  }
+
+  .city:active {
+    transform: scale(.985);
+    background: var(--wash);
+  }
+
+  .city-art {
+    height: 58px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .city-art svg {
+    width: 58px;
+    height: 58px;
+    stroke: var(--ink);
+    stroke-width: 1.5;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .city-name {
+    font-family: var(--serif);
+    font-size: 25px;
+    margin-bottom: 4px;
+  }
+
+  .city-date {
+    color: var(--soft);
+    font-size: 11px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+  }
+
+  .arrow {
+    font-size: 25px;
+    font-family: var(--serif);
+    font-weight: 300;
+  }
+
+  .quote {
+    font-family: var(--serif);
+    font-size: 22px;
+    line-height: 1.3;
+    text-align: center;
+    padding: 34px 25px 8px;
+  }
+
+  .quote-line {
+    width: 32px;
+    border-top: 1px solid var(--ink);
+    margin: 14px auto 0;
+  }
+
+  /* ---------- CITY PAGE ---------- */
+
+  .city-page {
+    display: none;
+    animation: fade .22s ease;
+  }
+
+  .city-page.show {
+    display: block;
+  }
+
+  .home-page.hide {
+    display: none;
+  }
+
+  @keyframes fade {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .back {
+    border: 0;
+    background: none;
+    padding: 42px 0 12px;
+    font-size: 26px;
+    cursor: pointer;
+  }
+
+  .city-title-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .city-title {
+    font-family: var(--serif);
+    font-size: 56px;
+    line-height: 1;
+    font-weight: 400;
+    margin: 5px 0 7px;
+    letter-spacing: -.04em;
+  }
+
+  .city-period {
+    font-size: 12px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--soft);
+  }
+
+  .hero-art {
+    margin: 18px 0 25px;
+    height: 130px;
+    border-bottom: 1px solid var(--ink);
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+  }
+
+  .hero-art svg {
+    width: 92%;
+    height: 125px;
+    stroke: var(--ink);
+    stroke-width: 1.4;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  /* ---------- MOOD ---------- */
+
+  .section-title {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 30px;
+    margin: 30px 0 15px;
+  }
+
+  .moods {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 9px;
+  }
+
+  .mood {
+    min-height: 112px;
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 14px 7px 11px;
+    text-align: center;
+    cursor: pointer;
+    transition: .18s;
+  }
+
+  .mood:active {
+    transform: scale(.97);
+    background: var(--wash);
+  }
+
+  .mood-icon {
+    height: 43px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .mood-icon svg {
+    width: 34px;
+    height: 34px;
+    stroke: var(--ink);
+    stroke-width: 1.6;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .mood-label {
+    font-size: 12px;
+    line-height: 1.2;
+  }
+
+  /* ---------- IDEA PANEL ---------- */
+
+  .idea-panel {
+    display: none;
+    border-top: 1px solid var(--ink);
+    margin-top: 28px;
+    padding-top: 23px;
+  }
+
+  .idea-panel.show {
+    display: block;
+    animation: fade .2s ease;
+  }
+
+  .kicker {
+    display: inline-block;
+    border: 1px solid var(--ink);
+    border-radius: 18px;
+    padding: 6px 11px;
+    font-size: 10px;
+    letter-spacing: .13em;
+    text-transform: uppercase;
+    margin-bottom: 13px;
+  }
+
+  .idea-title {
+    font-family: var(--serif);
+    font-size: 38px;
+    line-height: 1.02;
+    letter-spacing: -.025em;
+    margin: 0 0 12px;
+    font-weight: 400;
+  }
+
+  .idea-copy {
+    color: #4e4b47;
+    font-size: 15px;
+    line-height: 1.55;
+    margin-bottom: 18px;
+  }
+
+  .idea-meta {
+    display: flex;
+    gap: 18px;
+    flex-wrap: wrap;
+    padding: 15px 0;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    font-size: 12px;
+  }
+
+  /* ---------- CHECK LIST ---------- */
+
+  .stops {
+    margin-top: 18px;
+  }
+
+  .stop {
+    display: grid;
+    grid-template-columns: 34px 1fr 36px;
+    gap: 10px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--line);
+    align-items: start;
+  }
+
+  .number {
+    width: 28px;
+    height: 28px;
+    border: 1px solid var(--ink);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--serif);
+  }
+
+  .stop-name {
+    font-family: var(--serif);
+    font-size: 19px;
+    margin-bottom: 5px;
+  }
+
+  .stop-copy {
+    color: var(--soft);
+    font-size: 12px;
+    line-height: 1.45;
+  }
+
+  .check {
+    appearance: none;
+    width: 24px;
+    height: 24px;
+    border: 1.5px solid var(--ink);
+    border-radius: 6px;
+    cursor: pointer;
+  }
+
+  .check:checked {
+    background: var(--ink);
+    position: relative;
+  }
+
+  .check:checked::after {
+    content: "✓";
+    color: white;
+    position: absolute;
+    left: 5px;
+    top: 1px;
+    font-size: 15px;
+  }
+
+  /* ---------- QUICK LINKS ---------- */
+
+  .quick-links {
+    margin-top: 30px;
+    border-top: 1px solid var(--ink);
+  }
+
+  .quick {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 2px;
+    border-bottom: 1px solid var(--line);
+    cursor: pointer;
+  }
+
+  .quick strong {
+    font-family: var(--serif);
+    font-size: 19px;
+    font-weight: 400;
+  }
+
+  /* ---------- SURPRISE ---------- */
+
+  .surprise-box {
+    display: none;
+    margin-top: 18px;
+    padding: 20px;
+    border: 1px solid var(--ink);
+    border-radius: 18px;
+    background: white;
+  }
+
+  .surprise-box.show {
+    display: block;
+    animation: fade .2s ease;
+  }
+
+  .surprise-box h3 {
+    font-family: var(--serif);
+    font-size: 25px;
+    font-weight: 400;
+    margin: 0 0 7px;
+  }
+
+  .surprise-box p {
+    color: var(--soft);
+    line-height: 1.5;
+    margin: 0;
+    font-size: 14px;
+  }
+
+  /* ---------- BOTTOM NAV ---------- */
+
+  .bottom-nav {
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 0;
+    width: min(520px, 100%);
+    background: rgba(250,249,246,.94);
+    backdrop-filter: blur(16px);
+    border-top: 1px solid var(--line);
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    padding: 9px 12px calc(9px + env(safe-area-inset-bottom));
+    z-index: 10;
+  }
+
+  .nav-item {
+    border: 0;
+    background: transparent;
+    text-align: center;
+    font-size: 10px;
+    color: var(--soft);
+    cursor: pointer;
+  }
+
+  .nav-symbol {
+    font-size: 21px;
+    display: block;
+    color: var(--ink);
+    margin-bottom: 2px;
+  }
+
+  /* ---------- TOAST ---------- */
+
+  .toast {
+    position: fixed;
+    left: 50%;
+    bottom: 88px;
+    transform: translate(-50%, 20px);
+    background: var(--ink);
+    color: white;
+    border-radius: 25px;
+    padding: 11px 18px;
+    font-size: 12px;
+    opacity: 0;
+    pointer-events: none;
+    transition: .25s;
+    z-index: 20;
+    white-space: nowrap;
+  }
+
+  .toast.show {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+  <!-- HOME -->
+  <main class="home-page" id="homePage">
+
+    <header>
+      <div class="eyebrow">Places · food · little adventures</div>
+
+      <h1>Lynda<br>Somewhere Else</h1>
+
+      <div class="tagline">Same you. A wider view.</div>
+
+      <div class="plane">
+        <svg viewBox="0 0 420 55">
+          <path d="M20 39 C120 1 220 61 336 24"
+                stroke="#151515"
+                stroke-width="1.2"
+                stroke-dasharray="4 8"
+                fill="none"/>
+          <path d="M336 24 l29 -14 -13 26 -8 -9 -8 -3z"
+                stroke="#151515"
+                stroke-width="1.5"
+                fill="none"
+                stroke-linejoin="round"/>
+        </svg>
+      </div>
+    </header>
+
+    <div class="tabs">
+      <button class="tab active">Upcoming</button>
+      <button class="tab">Past</button>
+      <button class="tab">Ideas</button>
+    </div>
+
+    <div class="city-list">
+
+      <!-- CHRISTCHURCH -->
+      <div class="city" onclick="openCity('Christchurch','19 Sep 2026')">
+        <div class="city-art">
+          <svg viewBox="0 0 60 60">
+            <path d="M7 49h46M17 49V27h20v22M22 27l5-12 5 12"/>
+            <path d="M40 49V18h8v31M44 18V8M41 12h6"/>
+            <path d="M10 49V34l7-7"/>
+          </svg>
+        </div>
+        <div>
+          <div class="city-name">Christchurch</div>
+          <div class="city-date">19 Sep 2026 · beta playground</div>
+        </div>
+        <div class="arrow">›</div>
+      </div>
+
+      <!-- TAIPEI -->
+      <div class="city" onclick="openCity('Taipei','24 – 28 Oct 2026')">
+        <div class="city-art">
+          <svg viewBox="0 0 60 60">
+            <path d="M27 53h10M29 53l2-31h4l2 31"/>
+            <path d="M28 43h10M29 35h8M30 27h6"/>
+            <path d="M31 22l2-14 2 14"/>
+            <path d="M9 53h14V40H9zM13 40V34h6v6"/>
+          </svg>
+        </div>
+        <div>
+          <div class="city-name">Taipei</div>
+          <div class="city-date">24 – 28 Oct 2026</div>
+        </div>
+        <div class="arrow">›</div>
+      </div>
+
+      <!-- SHANGHAI -->
+      <div class="city" onclick="openCity('Shanghai','28 Oct – 2 Nov 2026')">
+        <div class="city-art">
+          <svg viewBox="0 0 60 60">
+            <path d="M5 52h50"/>
+            <path d="M13 52V30h9v22M16 30V22h4v8"/>
+            <path d="M29 52V26M25 35h8M26 29h6"/>
+            <path d="M29 26l-4-8h8zM29 18V8"/>
+            <path d="M39 52V20h9v32M42 20V14h3v6"/>
+          </svg>
+        </div>
+        <div>
+          <div class="city-name">Shanghai</div>
+          <div class="city-date">28 Oct – 2 Nov 2026</div>
+        </div>
+        <div class="arrow">›</div>
+      </div>
+
+      <!-- BEIJING -->
+      <div class="city" onclick="openCity('Beijing','2 – 5 Nov 2026')">
+        <div class="city-art">
+          <svg viewBox="0 0 60 60">
+            <path d="M8 51h44M13 51V42h34v9"/>
+            <path d="M17 42l4-9h18l4 9"/>
+            <path d="M12 42h36M20 33V25h20v8"/>
+            <path d="M17 25h26l-5-7H22z"/>
+          </svg>
+        </div>
+        <div>
+          <div class="city-name">Beijing</div>
+          <div class="city-date">2 – 5 Nov 2026</div>
+        </div>
+        <div class="arrow">›</div>
+      </div>
+
+      <!-- CHONGQING -->
+      <div class="city" onclick="openCity('Chongqing','5 – 9 Nov 2026')">
+        <div class="city-art">
+          <svg viewBox="0 0 60 60">
+            <path d="M5 52h50"/>
+            <path d="M8 52V27h9v25M11 27V18h3v9"/>
+            <path d="M22 52V17h10v35M25 17V10h4v7"/>
+            <path d="M37 52V31h14v21M41 31V24h6v7"/>
+            <path d="M7 42c14-8 29-8 46 0"/>
+          </svg>
+        </div>
+        <div>
+          <div class="city-name">Chongqing</div>
+          <div class="city-date">5 – 9 Nov 2026</div>
+        </div>
+        <div class="arrow">›</div>
+      </div>
+
+      <!-- HONG KONG -->
+      <div class="city" onclick="openCity('Hong Kong','9 – 12 Nov 2026')">
+        <div class="city-art">
+          <svg viewBox="0 0 60 60">
+            <path d="M5 52h50"/>
+            <path d="M8 52V25h8v27M19 52V15h8v37M30 52V28h9v24M42 52V20h8v32"/>
+            <path d="M22 15V8M45 20v-8"/>
+            <path d="M6 55c12-3 24-3 48 0"/>
+          </svg>
+        </div>
+        <div>
+          <div class="city-name">Hong Kong</div>
+          <div class="city-date">9 – 12 Nov 2026</div>
+        </div>
+        <div class="arrow">›</div>
+      </div>
+
+    </div>
+
+    <div class="quote">
+      A well-placed dessert can change the whole day.
+      <div class="quote-line"></div>
+    </div>
+
+  </main>
+
+
+  <!-- CITY PLAYGROUND -->
+  <main class="city-page" id="cityPage">
+
+    <button class="back" onclick="goHome()">←</button>
+
+    <div class="city-title-row">
+      <div>
+        <div class="eyebrow">Somewhere else</div>
+        <div class="city-title" id="cityTitle">Taipei</div>
+        <div class="city-period" id="cityPeriod">24 – 28 Oct 2026</div>
+      </div>
+    </div>
+
+    <div class="hero-art">
+      <svg viewBox="0 0 380 130">
+        <path d="M8 112h364"/>
+        <path d="M12 112c40-25 62-18 88-39 26-21 55-20 80 1 28 23 51 6 78-12 32-21 62 5 110 26"/>
+        <path d="M147 112V75h25v37M153 75V64h13v11"/>
+        <path d="M194 112h22M198 112l4-57h10l4 57M199 96h16M200 82h14M201 68h12"/>
+        <path d="M204 55l3-24 3 24"/>
+        <circle cx="295" cy="30" r="13"/>
+        <path d="M42 112V90h20v22M48 90V80h8v10"/>
+        <path d="M280 112V85h25v27M288 85V72h9v13"/>
+      </svg>
+    </div>
+
+    <h2 class="section-title">How do you feel?</h2>
+
+    <div class="moods">
+
+      <button class="mood" onclick="showIdea('big')">
+        <div class="mood-icon">
+          <svg viewBox="0 0 40 40">
+            <circle cx="20" cy="20" r="7"/>
+            <path d="M20 3v6M20 31v6M3 20h6M31 20h6M8 8l4 4M28 28l4 4M32 8l-4 4M12 28l-4 4"/>
+          </svg>
+        </div>
+        <div class="mood-label">The big stuff</div>
+      </button>
+
+      <button class="mood" onclick="showIdea('food')">
+        <div class="mood-icon">
+          <svg viewBox="0 0 40 40">
+            <path d="M11 5v13M7 5v8c0 4 8 4 8 0V5M11 18v17"/>
+            <path d="M27 5c-5 8-4 14 2 15v15M29 5v15"/>
+          </svg>
+        </div>
+        <div class="mood-label">A food mission</div>
+      </button>
+
+      <button class="mood" onclick="showIdea('wander')">
+        <div class="mood-icon">
+          <svg viewBox="0 0 40 40">
+            <circle cx="19" cy="7" r="3"/>
+            <path d="M18 11l-3 10 6 5 2 9M16 18l8 1 5 6M15 21l-5 12"/>
+          </svg>
+        </div>
+        <div class="mood-label">Just wander</div>
+      </button>
+
+      <button class="mood" onclick="showIdea('rain')">
+        <div class="mood-icon">
+          <svg viewBox="0 0 40 40">
+            <path d="M5 20c5-11 25-11 30 0-4-3-8-3-11 0-3-3-7-3-10 0-3-3-6-3-9 0z"/>
+            <path d="M20 20v11c0 6 7 6 7 1"/>
+          </svg>
+        </div>
+        <div class="mood-label">If it's raining</div>
+      </button>
+
+      <button class="mood" onclick="showIdea('low')">
+        <div class="mood-icon">
+          <svg viewBox="0 0 40 40">
+            <rect x="5" y="12" width="27" height="17" rx="3"/>
+            <path d="M32 17h3v7h-3M9 16h5v9H9"/>
+          </svg>
+        </div>
+        <div class="mood-label">Low energy</div>
+      </button>
+
+      <button class="mood" onclick="surpriseMe()">
+        <div class="mood-icon">
+          <svg viewBox="0 0 40 40">
+            <path d="M7 11l13-6 13 6-13 6zM7 11v17l13 7 13-7V11M20 17v18"/>
+            <circle cx="14" cy="13" r="1.3" fill="#151515"/>
+            <circle cx="26" cy="13" r="1.3" fill="#151515"/>
+            <circle cx="13" cy="24" r="1.3" fill="#151515"/>
+            <circle cx="27" cy="24" r="1.3" fill="#151515"/>
+          </svg>
+        </div>
+        <div class="mood-label">Surprise me</div>
+      </button>
+
+    </div>
+
+
+    <div class="idea-panel" id="ideaPanel">
+      <div class="kicker" id="ideaKicker">A food mission</div>
+      <h3 class="idea-title" id="ideaTitle">The Great Boba Investigation</h3>
+      <div class="idea-copy" id="ideaCopy"></div>
+
+      <div class="idea-meta">
+        <span id="metaOne">◷ 2–4 hours</span>
+        <span id="metaTwo">♧ Easy</span>
+        <span>Plans optional</span>
+      </div>
+
+      <div class="stops" id="stops"></div>
+    </div>
+
+
+    <div class="surprise-box" id="surpriseBox">
+      <h3 id="surpriseTitle">Your assignment</h3>
+      <p id="surpriseCopy"></p>
+    </div>
+
+
+    <div class="quick-links">
+      <h2 class="section-title">Keep in your back pocket</h2>
+
+      <div class="quick" onclick="toast('Coming next: live events and temporary things worth knowing about.')">
+        <strong>What's on while we're here</strong>
+        <span>›</span>
+      </div>
+
+      <div class="quick" onclick="toast('Bookings ledger coming next.')">
+        <strong>Things actually booked</strong>
+        <span>›</span>
+      </div>
+
+      <div class="quick" onclick="toast('Hotel-neighbourhood ideas coming next.')">
+        <strong>Near the hotel</strong>
+        <span>›</span>
+      </div>
+
+      <div class="quick" onclick="toast('Rain does not cancel the day. It changes the genre.')">
+        <strong>If the weather is rubbish</strong>
+        <span>›</span>
+      </div>
+
+      <div class="quick" onclick="toast('Saved ideas will live here.')">
+        <strong>Things I might actually do</strong>
+        <span>›</span>
+      </div>
+    </div>
+
+  </main>
+
+</div>
+
+
+<!-- BOTTOM NAV -->
+<nav class="bottom-nav">
+  <button class="nav-item" onclick="goHome()">
+    <span class="nav-symbol">⌂</span>
+    Home
+  </button>
+
+  <button class="nav-item" onclick="toast('Maps are coming. No running to happy hour required.')">
+    <span class="nav-symbol">⌖</span>
+    Map
+  </button>
+
+  <button class="nav-item" onclick="surpriseMe()">
+    <span class="nav-symbol">✦</span>
+    Entertain me
+  </button>
+
+  <button class="nav-item" onclick="toast('Your saved things will live here.')">
+    <span class="nav-symbol">♡</span>
+    Saved
+  </button>
+</nav>
+
+<div class="toast" id="toast"></div>
+
+
+<script>
+
+  let currentCity = "Taipei";
+
+  const cityIdeas = {
+
+    Taipei: {
+      food: {
+        kicker: "A very specific mission",
+        title: "The Great Taipei Boba Investigation",
+        copy: "Find several genuinely different bubble teas and let the drinks create the walking route. The point is not five beverages. The point is everything you stumble across between them.",
+        meta1: "◷ 2–4 hours",
+        meta2: "♧ Easy wandering",
+        stops: [
+          ["Start somewhere old-school", "One classic milk tea. Establish the baseline."],
+          ["Find something ridiculous", "Fruit, foam, jelly, pudding or something requiring explanation."],
+          ["Walk before round three", "Pick the next shop because the neighbourhood looks interesting."],
+          ["Finish somewhere excellent", "One final drink. Entirely unnecessary. Important research."]
+        ]
+      },
+
+      wander: {
+        kicker: "Just being here",
+        title: "Pick a Street. Lose the Agenda.",
+        copy: "Choose an interesting neighbourhood, get off the MRT and stop trying to accomplish Taipei. Look at shops. Buy something tiny. Sit down when somewhere looks good.",
+        meta1: "◷ As long as you like",
+        meta2: "♧ Zero achievement required",
+        stops: [
+          ["Get off", "Choose a station because the surrounding streets look interesting."],
+          ["Follow something", "A bakery, a shopfront, a queue, a side street."],
+          ["Sit somewhere", "Coffee, tea, park bench. No next task."],
+          ["Leave when you're done", "Not when the itinerary says so."]
+        ]
+      },
+
+      rain: {
+        kicker: "Change the genre",
+        title: "Rainy Taipei Is Still Taipei",
+        copy: "Forget salvaging the outdoor plan. Department stores, underground malls, food halls, bookstores, cafés and one extremely long lunch can make an excellent rainy day.",
+        meta1: "☂ Weather-proof",
+        meta2: "♧ Minimal suffering",
+        stops: [
+          ["Go underground", "Use Taipei's underground shopping and station networks."],
+          ["Browse something", "Books, design, beauty, stationery or department stores."],
+          ["Eat slowly", "Rain is an excellent excuse for a proper lunch."],
+          ["Add dessert", "Obviously."]
+        ]
+      },
+
+      low: {
+        kicker: "Can't be arsed",
+        title: "One Good Thing Is Enough",
+        copy: "You do not need to win Taipei. Pick one compact area, eat something good, look at one interesting thing and go back to the hotel whenever you want.",
+        meta1: "◷ 1–3 hours",
+        meta2: "▭ Battery-saving mode",
+        stops: [
+          ["Leave hotel", "This is already an achievement."],
+          ["One interesting thing", "Not seven."],
+          ["Something good to eat", "Preferably nearby."],
+          ["Hotel", "No guilt. We have other days."]
+        ]
+      },
+
+      big: {
+        kicker: "The famous things",
+        title: "Yes, See the Thing",
+        copy: "Some famous things are famous because they're actually good. Choose one or two. See them properly. Then wander off and find something less organised.",
+        meta1: "◷ Half a day",
+        meta2: "◎ Selective sightseeing",
+        stops: [
+          ["Choose the headline", "The major thing you genuinely want to see."],
+          ["Look properly", "No need to turn sightseeing into speed dating."],
+          ["Tick", "Seen it. Excellent."],
+          ["Go somewhere ordinary", "Now let the city get interesting again."]
+        ]
+      }
+    }
+
+  };
+
+
+  function openCity(city, period) {
+    currentCity = city;
+
+    document.getElementById("cityTitle").textContent = city;
+    document.getElementById("cityPeriod").textContent = period;
+
+    document.getElementById("homePage").classList.add("hide");
+    document.getElementById("cityPage").classList.add("show");
+
+    document.getElementById("ideaPanel").classList.remove("show");
+    document.getElementById("surpriseBox").classList.remove("show");
+
+    window.scrollTo({top:0, behavior:"smooth"});
+  }
+
+
+  function goHome() {
+    document.getElementById("cityPage").classList.remove("show");
+    document.getElementById("homePage").classList.remove("hide");
+    window.scrollTo({top:0, behavior:"smooth"});
+  }
+
+
+  function showIdea(type) {
+
+    const defaults = {
+      food: {
+        kicker:"A very specific mission",
+        title:"Eat Your Way Into the City",
+        copy:"Choose one food or drink and let it create the route. Three or four stops. Interesting streets between them. No need to make lunch a competitive sport.",
+        meta1:"◷ 2–4 hours",
+        meta2:"♧ Easy"
+      },
+      wander: {
+        kicker:"Just being here",
+        title:"Go Somewhere Without a Checklist",
+        copy:"Pick a neighbourhood and wander. Shops, cafés, side streets, people-watching and whatever looks interesting.",
+        meta1:"◷ Flexible",
+        meta2:"♧ No agenda"
+      },
+      rain: {
+        kicker:"If it's raining",
+        title:"Change the Genre",
+        copy:"Forget the outdoor plan. Find the city's best indoor pocket and make a day of eating, browsing and looking around.",
+        meta1:"☂ Rain-proof",
+        meta2:"♧ Comfortable"
+      },
+      low: {
+        kicker:"Low battery",
+        title:"One Good Thing",
+        copy:"One interesting place. One good meal. Something nearby. Then stop.",
+        meta1:"◷ 1–3 hours",
+        meta2:"▭ Easy"
+      },
+      big: {
+        kicker:"The big stuff",
+        title:"See the Famous Thing",
+        copy:"Choose the landmark that genuinely deserves your time. See it. Tick it. Then go and do something less sensible.",
+        meta1:"◷ Flexible",
+        meta2:"◎ Selective"
+      }
+    };
+
+    let idea =
+      cityIdeas[currentCity] && cityIdeas[currentCity][type]
+      ? cityIdeas[currentCity][type]
+      : defaults[type];
+
+    document.getElementById("ideaKicker").textContent = idea.kicker;
+    document.getElementById("ideaTitle").textContent = idea.title;
+    document.getElementById("ideaCopy").textContent = idea.copy;
+    document.getElementById("metaOne").textContent = idea.meta1;
+    document.getElementById("metaTwo").textContent = idea.meta2;
+
+    const stops = idea.stops || [
+      ["Start somewhere", "We'll add proper researched places here."],
+      ["Follow your nose", "The in-between bits count."],
+      ["Stop somewhere good", "Food, coffee, dessert or just sit down."],
+      ["Call it", "You don't have to finish anything."]
+    ];
+
+    const holder = document.getElementById("stops");
+    holder.innerHTML = "";
+
+    stops.forEach((stop, i) => {
+      const row = document.createElement("div");
+      row.className = "stop";
+
+      const saved = localStorage.getItem(
+        currentCity + "-" + type + "-" + i
+      ) === "true";
+
+      row.innerHTML = `
+        <div class="number">${i+1}</div>
+        <div>
+          <div class="stop-name">${stop[0]}</div>
+          <div class="stop-copy">${stop[1]}</div>
+        </div>
+        <input
+          class="check"
+          type="checkbox"
+          ${saved ? "checked" : ""}
+          onchange="saveCheck('${currentCity}-${type}-${i}', this.checked)"
+        >
+      `;
+
+      holder.appendChild(row);
+    });
+
+    document.getElementById("surpriseBox").classList.remove("show");
+    document.getElementById("ideaPanel").classList.add("show");
+
+    setTimeout(() => {
+      document.getElementById("ideaPanel")
+        .scrollIntoView({behavior:"smooth", block:"start"});
+    }, 80);
+  }
+
+
+  function saveCheck(key, value) {
+    localStorage.setItem(key, value);
+    toast(value ? "Ticked. No medal required." : "Unticked. Also fine.");
+  }
+
+
+  const surprises = [
+    [
+      "The Convenience Store Brief",
+      "Find the most interesting convenience store within walking distance. Buy one drink you've never tried, one snack you can't immediately identify and one completely unnecessary thing."
+    ],
+    [
+      "Dessert Is the Route",
+      "Find three desserts within a walkable area. You don't need to eat all three. The mission exists mainly to choose the streets."
+    ],
+    [
+      "Get Off One Stop Early",
+      "On your next journey, get off one stop before you need to. Walk the rest. If it looks boring, abandon this immediately."
+    ],
+    [
+      "Find the Local Obsession",
+      "Look for something locals seem unusually enthusiastic about: a queue, a drink, a shop, a character, a snack. Investigate."
+    ],
+    [
+      "Department Store Anthropology",
+      "Go into a department store. Start with the food floor, then find the strangest or most beautiful department. Leave before it becomes shopping."
+    ],
+    [
+      "The $20 Experiment",
+      "Give yourself a small budget and one hour. Find the most interesting tiny things the neighbourhood can give you for it."
+    ],
+    [
+      "Follow the Pretty Street",
+      "No map for twenty minutes. Choose whichever street looks nicest at each intersection. Then work out where you ended up."
+    ]
+  ];
+
+
+  function surpriseMe() {
+
+    if (!document.getElementById("cityPage").classList.contains("show")) {
+      openCity("Somewhere Else", "No fixed plan");
+    }
+
+    const pick = surprises[Math.floor(Math.random() * surprises.length)];
+
+    document.getElementById("surpriseTitle").textContent = pick[0];
+    document.getElementById("surpriseCopy").textContent = pick[1];
+
+    document.getElementById("ideaPanel").classList.remove("show");
+    document.getElementById("surpriseBox").classList.add("show");
+
+    setTimeout(() => {
+      document.getElementById("surpriseBox")
+        .scrollIntoView({behavior:"smooth", block:"center"});
+    }, 100);
+  }
+
+
+  function toast(message) {
+    const t = document.getElementById("toast");
+    t.textContent = message;
+    t.classList.add("show");
+
+    clearTimeout(window.toastTimer);
+    window.toastTimer = setTimeout(() => {
+      t.classList.remove("show");
+    }, 2300);
+  }
+
+</script>
+
+</body>
+</html>
